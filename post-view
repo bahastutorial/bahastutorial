@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
+<title>Recent Post</title>
+<style>
+.post-view {
+    font-size: 85%;
+    margin: 5px 5px 5px 0px;
+    padding: 4px 8px;
+    color: #fff;
+    background: #479c1c;
+}
+
+.post-view>i {
+    padding-right: 5px;
+    font-size: 98%;
+}
+</style>
+
+</head>
+
+<body>
+<div class="box" id="box">
+<div id="recentpost"></div>
+<div id="recentpostnavfeed"></div>
+</div>
+<script>
+$.each($(".post-view[data-id]"), function(a, e) {
+        var l = $(e).parent().find("#postviews").addClass("view-load"),
+            i = new Firebase("https://mafsyah-1505710985535.firebaseio.com/pages/id/" + $(e).attr("data-id"));
+        i.once("value", function(a) {
+            var n = a.val(),
+                t = !1;
+            null == n && (n = {}, n.value = 0, n.url = window.location.href, n.id = $(e).attr("data-id"), t = !0), l.removeClass("view-load").text(n.value), n.value++, "/" != window.location.pathname && (t ? i.set(n) : i.child("value").set(n.value))
+        })
+    });
+  </script>
+<script src='//cdn.firebase.com/js/client/2.2.1/firebase.js' type='text/javascript'/>
+</body>
+</html>
