@@ -8,19 +8,6 @@
 <title>Random post Entry</title>
 <meta content='width=device-width, initial-scale=1' name='viewport'>
 <script src='//cdn.firebase.com/js/client/2.2.1/firebase.js' type='text/javascript'/>
-<script async='async' type='text/javascript'>
-    //<![CDATA[
-    $.each($(".post-view[data-id]"), function(a, e) {
-        var l = $(e).parent().find("#postviews").addClass("view-load"),
-            i = new Firebase("https://mafsyah-1505710985535.firebaseio.com/pages/id/" + $(e).attr("data-id"));
-        i.once("value", function(a) {
-            var n = a.val(),
-                t = !1;
-            null == n && (n = {}, n.value = 0, n.url = window.location.href, n.id = $(e).attr("data-id"), t = !0), l.removeClass("view-load").text(n.value), n.value++, "/" != window.location.pathname && (t ? i.set(n) : i.child("value").set(n.value))
-        })
-    });
-    //]]>
-</script>
 <style>
 body{background:#fff;color:#111;font-size:14px;font-weight:300;line-height:22px;text-decoration:none;margin:0;padding:0}
 .post-view {
@@ -39,7 +26,19 @@ body{background:#fff;color:#111;font-size:14px;font-weight:300;line-height:22px;
 </head>
 <body>
 
-
+<script>
+    //<![CDATA[
+    $.each($(".post-view[data-id]"), function(a, e) {
+        var l = $(e).parent().find("#postviews").addClass("view-load"),
+            i = new Firebase("https://mafsyah-1505710985535.firebaseio.com/pages/id/" + $(e).attr("data-id"));
+        i.once("value", function(a) {
+            var n = a.val(),
+                t = !1;
+            null == n && (n = {}, n.value = 0, n.url = window.location.href, n.id = $(e).attr("data-id"), t = !0), l.removeClass("view-load").text(n.value), n.value++, "/" != window.location.pathname && (t ? i.set(n) : i.child("value").set(n.value))
+        })
+    });
+    //]]>
+</script>
 
 </body>
 </html>
